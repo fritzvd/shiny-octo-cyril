@@ -1,0 +1,23 @@
+<html>
+<body>
+    <div id="from" style="width:100px; height: 100px; background: #333; color: #eee; margin-bottom: 20px">
+        <h3> jantje</h3>
+    </div>
+
+    <div id="to" style="width:100px; height: 100px; background: #3f3d3a;">
+
+    </div>
+
+      <script type="text/javascript" src="jquery.min.js"></script>
+      <script type="text/javascript" src="jquery.hammer.min.js"></script>
+      <script type="text/javascript" src="hammer.min.js"></script>
+
+      <script type="text/javascript">
+       $('#from').hammer().on("tap", ".nested_el", function(event) {
+        console.log(this, event);
+    });
+      </script>    
+
+</div>
+</body>
+</html>
