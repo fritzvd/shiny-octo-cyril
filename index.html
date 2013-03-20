@@ -9,16 +9,17 @@
             -ms-user-select: none;
             user-select: none;
             cursor: pointer;
+            color: #eee;
         }
     </style>
 </head>
 <body>
-    <div id="from" style="width:100px; height: 100px; background: #333; color: #eee; margin-bottom: 20px">
-        <h3 class="ditjantje" draggable="true"> jantje</h3>
+    <div id="from" style="width:100px; height: 100px; background: #333; margin-bottom: 20px">
+        <h3 class="ditjantje"> jantje</h3>
     </div>
 
     <div id="to" style="width:100px; height: 100px; background: #3f3d3a;" ondrop="dropshiz(event)" ondragover="allowdrop(event)">
-
+<!-- ondrop="dropshiz(event)" ondragover="allowdrop(event)" -->
     </div>
 
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -28,21 +29,20 @@
 
       <script type="text/javascript">
       $(document).ready(function(){
-        $('#from').hammer().on("dragstart", function(event) {
-            
+        var from =  document.getElementById('from');
+        var hammertime = Hammer(from, {
+            drag: true
+        }).on('dragstart', function(e){
+
         });
-        $('#from').hammer().on("dragend", function(event) {
-            console.log(this, event);
+
+        hammerslime = Hammer(from).on('dragend', function(e){
+            console.log(this, e);
+            origin = e.gesture.center;
+            target = document.elementFromPoint(origin.pageX, origin.pageY)
+            $(target).html($(this).html())
         });
-        
-        
        });
-      function dropshiz (event) {
-            console.log(event)
-        };
-      function allowdrop(e){
-        e.preventDefault();
-      };
       </script>    
 
 </div>
