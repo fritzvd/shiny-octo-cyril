@@ -18,19 +18,16 @@
         height: 300px; 
         background: #333; 
         float: left;
-        margin: 10px;
-        }
-
-        ul{
-            list-style: none;
+        margin: 1em;
         }
 
         .to{
+            margin: 1em;
             height: 100px;
             width: 100px;
             background: #3f3d3a;
             position: relative;
-            margin: 10px;
+            margin-bottom: 20px;
         }
 
         .row{
@@ -40,16 +37,11 @@
 </head>
 <body>
     <div id="from">
-        <ul>
-            <li><h3 class="ditjantje"> jantje</h3></li>
-            <li><h3 class="ditjantje"> pietje</h3></li>
-            <li><h3 class="ditjantje"> klaas</h3></li>
-            <li><h3 class="ditjantje"> herman</h3></li>
-            <li><h3 class="ditjantje"> koos</h3></li>
-        </ul>
+        <h3 class="ditjantje"> jantje</h3>
     </div>
     <div class="row">
         <div id="to1" class="to">
+            
         </div>
         <div id="to2" class="to"></div>
     </div>
@@ -62,21 +54,32 @@
       <script type="text/javascript">
       $(document).ready(function(){
         var from =  document.getElementById('from');
-        var hammertime = Hammer(from, {
-        }).on('swipe', function(e){
-            angle = e.gesture.angle;
-            origin = e.gesture.center;
-            target = document.elementFromPoint(origin.pageX + e.gesture.deltaX, origin.pageY, e.gesture.deltaY)
-            $(target).html($(this).html())
-            // e.gesture
+        Hammer(from, {
+            drag: true,
+            // defaultPrevented: true  
+        }).on('drag', function(e){
+           
         });
 
-        // hammerslime = Hammer(from).on('dragend', function(e){
-        //     console.log(this, e);
-        //     origin = e.gesture.center;
-        //     target = document.elementFromPoint(origin.pageX, origin.pageY)
-        //     $(target).html($(this).html())
-        // });
+        Hammer(from).on('dragend', function(e){
+            target = whichClosest(e.gesture);
+            $(target).closest('.to').html($(this).html())
+        });
+
+        function whichClosest(gesture){
+            var target;
+            topScreen = $('#to1')
+            bottomScreen = $('#to2')
+            yPosition = gesture.center.pageY + gesture.deltaY;
+            if (yPosition < bottomScreen.offset().top){
+                target = topScreen;
+            } else {
+                target = bottomScreen;
+            }
+            // target = document.elementFromPoint(origin.pageX, origin.pageY)
+            return target
+        };
+
        });
       </script>    
 
