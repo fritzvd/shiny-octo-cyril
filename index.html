@@ -16,7 +16,7 @@
         <h3 class="ditjantje" draggable="true"> jantje</h3>
     </div>
 
-    <div id="to" style="width:100px; height: 100px; background: #3f3d3a;">
+    <div id="to" droppable="true" style="width:100px; height: 100px; background: #3f3d3a;">
 
     </div>
 
@@ -27,7 +27,7 @@
       <script type="text/javascript">
       $(document).ready(function(){
         $('#from').hammer().on("dragstart", function(event) {
-            console.log(this, event);
+            alert('hieihha')
         });
         $('#from').hammer().on("dragend", function(event) {
             console.log(this, event);
