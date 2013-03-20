@@ -1,6 +1,7 @@
 <html>
 <head>
     <style>
+        body { width: 850px; margin: 0 auto; }
         .ditjantje{
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -11,15 +12,46 @@
             cursor: pointer;
             color: #eee;
         }
+
+        #from{
+        width:100px; 
+        height: 300px; 
+        background: #333; 
+        float: left;
+        margin: 10px;
+        }
+
+        ul{
+            list-style: none;
+        }
+
+        .to{
+            height: 100px;
+            width: 100px;
+            background: #3f3d3a;
+            position: relative;
+            margin: 10px;
+        }
+
+        .row{
+            float: left;
+        }
     </style>
 </head>
 <body>
-    <div id="from" style="width:100px; height: 100px; background: #333; margin-bottom: 20px">
-        <h3 class="ditjantje"> jantje</h3>
+    <div id="from">
+        <ul>
+            <li><h3 class="ditjantje"> jantje</h3></li>
+            <li><h3 class="ditjantje"> pietje</h3></li>
+            <li><h3 class="ditjantje"> klaas</h3></li>
+            <li><h3 class="ditjantje"> herman</h3></li>
+            <li><h3 class="ditjantje"> koos</h3></li>
+        </ul>
     </div>
-
-    <div id="to" style="width:100px; height: 100px; background: #3f3d3a;" ondrop="dropshiz(event)" ondragover="allowdrop(event)">
-<!-- ondrop="dropshiz(event)" ondragover="allowdrop(event)" -->
+    <div class="row">
+        <div id="to1" class="to">
+        </div>
+        <div id="to2" class="to"></div>
     </div>
 
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -31,17 +63,20 @@
       $(document).ready(function(){
         var from =  document.getElementById('from');
         var hammertime = Hammer(from, {
-            drag: true
-        }).on('dragstart', function(e){
-
-        });
-
-        hammerslime = Hammer(from).on('dragend', function(e){
-            console.log(this, e);
+        }).on('swipe', function(e){
+            angle = e.gesture.angle;
             origin = e.gesture.center;
-            target = document.elementFromPoint(origin.pageX, origin.pageY)
+            target = document.elementFromPoint(origin.pageX + e.gesture.deltaX, origin.pageY, e.gesture.deltaY)
             $(target).html($(this).html())
+            // e.gesture
         });
+
+        // hammerslime = Hammer(from).on('dragend', function(e){
+        //     console.log(this, e);
+        //     origin = e.gesture.center;
+        //     target = document.elementFromPoint(origin.pageX, origin.pageY)
+        //     $(target).html($(this).html())
+        // });
        });
       </script>    
 
